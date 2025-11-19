@@ -44,7 +44,7 @@
             min-height: 100vh;
             justify-content: center;
             padding-left: 0;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -4150,40 +4150,32 @@
             }
         });
 
-        (function() {
-            let devToolsDetected = false;
-            const threshold = 150;
+        const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-            function detectDevTools() {
-                const widthDifference = window.outerWidth - window.innerWidth;
-                const heightDifference = window.outerHeight - window.innerHeight;
-                const devToolsOpen = widthDifference > threshold || heightDifference > threshold;
+        if (!isMobileDevice) {
+            (function() {
+                let devToolsDetected = false;
+                const threshold = 150;
 
-                if (devToolsOpen && !devToolsDetected) {
-                    devToolsDetected = true;
-                    window.location.href = 'about:blank';
-                } else if (!devToolsOpen) {
-                    devToolsDetected = false;
+                function detectDevTools() {
+                    const widthDifference = window.outerWidth - window.innerWidth;
+                    const heightDifference = window.outerHeight - window.innerHeight;
+                    const devToolsOpen = widthDifference > threshold || heightDifference > threshold;
+
+                    if (devToolsOpen && !devToolsDetected) {
+                        devToolsDetected = true;
+                        window.location.href = 'about:blank';
+                    } else if (!devToolsOpen) {
+                        devToolsDetected = false;
+                    }
                 }
-            }
 
-            window.addEventListener('resize', detectDevTools);
-            window.addEventListener('load', detectDevTools);
-            setInterval(detectDevTools, 1000);
-        })();
-    </script>
-    <style>
-    @media (max-width: 768px) {
-        .content-wrapper, .main-content, .content-card {
-            max-width: 100% !important;
-            padding: 16px !important;
-            margin: 0 !important;
-            box-sizing: border-box;
+                window.addEventListener('resize', detectDevTools);
+                window.addEventListener('load', detectDevTools);
+                setInterval(detectDevTools, 1000);
+            })();
         }
-    }
-</style>
+    </script>
 </body>
 
 </html>
-
-
